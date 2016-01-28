@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Web.Http;
-using WebApi.Hal.Web.Api;
-using Xunit;
+﻿using Xunit;
 
 namespace WebApi.Hal.Tests
 {
@@ -97,6 +94,32 @@ namespace WebApi.Hal.Tests
 
             // assert
             Assert.Equal("/beers/This%20Works", link.Href);
+        }
+
+        [Fact]
+        public void create_uri_absolute()
+        {
+            // arrange
+            var templateLink = new Link("beerbyname", "http://myserver.com/api/beers/{name}");
+
+            // act
+            var link = templateLink.CreateUri(new {name = "BeerName"});
+
+            // assert
+            Assert.Equal("http://myserver.com/api/beers/BeerName", link.ToString());
+        }
+
+        [Fact]
+        public void create_link_uses_templates_title()
+        {
+            // arrange
+            var templateLink = new Link("beerbyname", "http://myserver.com/api/beers{name}", "Beer");
+
+            // act
+            var link = templateLink.CreateLink(new {name = "BeerName"});
+
+            // assert
+            Assert.Equal(link.Title, "Beer");
         }
     }
 }

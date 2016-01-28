@@ -1,10 +1,7 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Linq;
 using WebApi.Hal.Web.Api.Resources;
 using WebApi.Hal.Web.Data;
-using WebApi.Hal.Web.Models;
 
 namespace WebApi.Hal.Web.Api
 {
@@ -31,22 +28,6 @@ namespace WebApi.Hal.Web.Api
                 StyleId = beer.Style == null ? (int?)null : beer.Style.Id,
                 StyleName = beer.Style == null ? null : beer.Style.Name,
                 ReviewIds = beerDbContext.Reviews.Where(r => r.Beer_Id == id).Select(r => r.Id).ToList()
-            };
-        }
-
-        // POST beers
-        public HttpResponseMessage Post(BeerRepresentation value)
-        {
-            var newBeer = new Beer(value.Name);
-            beerDbContext.Beers.Add(newBeer);
-            beerDbContext.SaveChanges();
-
-            return new HttpResponseMessage(HttpStatusCode.Created)
-            {
-                Headers =
-                {
-                    Location = LinkTemplates.Beers.Beer.CreateUri(new { id = newBeer.Id })
-                }
             };
         }
 

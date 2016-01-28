@@ -38,7 +38,7 @@ The link class represents hypermedia on a representation. It looks like this:
 
 The thing which makes this class special is it's support for templates. For example:
 
-	var link = new Link("beers, "/breweries/{id}/beers");
+	var link = new Link("beers", "/breweries/{id}/beers");
 
 Notice the {id}, this allows you to return a templated link as hypermedia. But you can also turn it into an absolute link really easily:
 
@@ -118,9 +118,12 @@ Sample controller action
 ## Sample Project
 To run the sample project, update the connection string in web.config, then **create** the database. When you hit an API for the first time, the database will be setup using DbUp.
 
-You can use fiddler to explore the API. Make sure you put in an accept header of `application/hal+json`. Try hitting `http://localhost:51665/api/beers` with that accept header, and see what happens
+You can use fiddler to explore the API. Make sure you put in an accept header of `application/hal+json`. Try hitting `http://localhost:51665/beers` with that accept header, and see what happens
 
 ##Credits
 I have more credits to add, but this is the most obvious (as I based my Xml formatter off this project)
 
 https://bitbucket.org/smichelotti/hal-media-type
+
+## Release Notes
+See Readme.txt at http://github.com/JakeGinnivan/WebApi.Hal

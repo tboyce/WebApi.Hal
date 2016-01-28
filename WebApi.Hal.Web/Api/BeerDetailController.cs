@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using WebApi.Hal.Web.Api.Resources;
 using WebApi.Hal.Web.Data;
@@ -37,9 +38,21 @@ namespace WebApi.Hal.Web.Api
                 Style = new BeerStyleRepresentation {Id = beer.Style.Id, Name = beer.Style.Name},
                 Brewery = new BreweryRepresentation {Id = beer.Brewery.Id, Name = beer.Brewery.Name}
             };
-            foreach (var review in reviews)
-                detail.Reviews.Add(review);
+            if (reviews.Count > 0)
+            {
+                detail.Reviews = new List<ReviewRepresentation>();
+                foreach (var review in reviews)
+                    detail.Reviews.Add(review);
+            }
             return detail;
+        }
+
+        // PUT beerdetail/5
+        public void Put(int id, BeerDetailRepresentation beer)
+        {
+            // this is here just to see how the deserializer is working
+            // we should get the links and all the embedded objects deserialized
+            // we'd be better off creating a client to test the full deserializing, but this way is cheap for now
         }
     }
 }
